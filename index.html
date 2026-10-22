@@ -1,0 +1,504 @@
+<!DOCTYPE html><script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "It Audit Guidance Agent Accounting",
+  "schemaVersion": 1,
+  "description": "Repository of regulatory/cybersecurity guidance changes (FTC, IRS, AICPA, NIST, CISA, Michigan) relevant to IT audit AND proactive client readiness for accounting, tax and bookkeeping firms. Each entry has an impact assessment, a suggested audit-program change, and a client-readiness advisory. Refreshed weekly by a scheduled task."
+}
+</script>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT Audit-Compliance Guidance Dashboard — Accounting</title>
+<style>
+  :root{
+    color-scheme: light;
+    --navy:#3E1B42; --teal:#94600F; --grey:#6C5C75; --light:#F3ECF4;
+    --bg:#F8F5F9; --card:#FFFFFF; --border:#E4D9E7;
+    --hi:#8E3B46; --hibg:#FBEAEA;
+    --med:#8A5A2C; --medbg:#FBF3E9;
+    --low:#2F6F5B; --lowbg:#E3F1EA;
+    --advisory:#8A5A0E; --advisorybg:#FBF1DF;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Calibri,Arial,sans-serif;
+    background:var(--bg); color:#222; line-height:1.5;
+  }
+  header{background:var(--navy); color:#fff; padding:20px 24px;}
+  header .tag{color:#E8BE73; font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;}
+  header h1{margin:4px 0 2px; font-size:22px;}
+  header p{margin:0; color:#E6D8E8; font-size:13px; max-width:780px;}
+  .wrap{max-width:1080px; margin:0 auto; padding:20px 18px 50px;}
+
+  .stat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:18px;}
+  .stat{background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px; text-align:center;}
+  .stat .v{font-size:22px; font-weight:700; color:var(--navy);}
+  .stat .l{font-size:11px; color:var(--grey); text-transform:uppercase; letter-spacing:.03em; margin-top:2px;}
+
+  .controls{background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-bottom:16px; display:flex; gap:10px; flex-wrap:wrap; align-items:end;}
+  .controls > div{flex:1; min-width:150px;}
+  .controls label{display:block; font-size:11px; font-weight:600; color:var(--grey); margin-bottom:4px; text-transform:uppercase; letter-spacing:.03em;}
+  .controls input, .controls select{width:100%; padding:8px 9px; border:1px solid #cfd5dd; border-radius:6px; font-size:13.5px; font-family:inherit; background:#fff;}
+
+  .count-note{font-size:12.5px; color:var(--grey); margin-bottom:10px;}
+
+  .entry{background:var(--card); border:1px solid var(--border); border-radius:10px; padding:16px 18px; margin-bottom:12px;}
+  .entry-top{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap;}
+  .entry-title{font-size:15px; font-weight:700; color:var(--navy); margin:0 0 4px;}
+  .entry-title a{color:inherit; text-decoration:none;}
+  .entry-title a:hover{text-decoration:underline;}
+  .entry-meta{font-size:12px; color:var(--grey);}
+  .badges{display:flex; gap:6px; flex-wrap:wrap; align-items:center;}
+  .badge{display:inline-block; padding:3px 9px; border-radius:20px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.02em; white-space:nowrap;}
+  .badge.rel-high{background:var(--hibg); color:var(--hi);}
+  .badge.rel-medium{background:var(--medbg); color:var(--med);}
+  .badge.rel-low{background:var(--lowbg); color:var(--low);}
+  .badge.cat{background:var(--light); color:var(--navy);}
+  .badge.type{background:#fff; color:var(--grey); border:1px solid var(--border);}
+
+  .entry-body{margin-top:10px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px;}
+  .entry-body .block h4{margin:0 0 4px; font-size:11px; text-transform:uppercase; letter-spacing:.03em; color:var(--grey);}
+  .entry-body .block p{margin:0; font-size:13.5px; color:#333;}
+  .entry-body .block.advisory{background:var(--advisorybg); border-radius:8px; padding:8px 10px; margin:-8px -10px;}
+  .entry-body .block.advisory h4{color:var(--advisory);}
+  @media (max-width:900px){ .entry-body{grid-template-columns:1fr;} .entry-body .block.advisory{margin:4px 0 0;} }
+
+  .areas{margin-top:8px; font-size:12px; color:var(--grey);}
+  .areas span{background:var(--light); border-radius:5px; padding:2px 7px; margin-right:5px; display:inline-block; margin-top:4px;}
+
+  .hidden{display:none;}
+  .empty{text-align:center; padding:40px 20px; color:var(--grey); font-size:14px;}
+
+  footer{max-width:1080px; margin:0 auto; padding:0 18px 40px; font-size:12px; color:var(--grey);}
+  footer .box{background:#fff; border:1px dashed var(--border); border-radius:8px; padding:12px 14px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="tag">Accounting &amp; Tax Audit Advisory</div>
+  <h1>IT Audit-Compliance Guidance Dashboard — Accounting</h1>
+  <p>Continuously monitors the FTC and IRS (regulatory) plus AICPA, NIST, CISA, and Michigan state sources for new or revised guidance affecting CPA firms, tax preparers, and bookkeepers. Each item gets both a suggested IT audit-program change and a proactive client-readiness advisory, to help accounting clients meet the FTC Safeguards Rule and IRS written information security plan (WISP) expectations ahead of filing season.</p>
+</header>
+
+<div class="wrap">
+
+  <div class="stat-grid">
+    <div class="stat"><div class="v" id="statTotal">–</div><div class="l">Tracked items</div></div>
+    <div class="stat"><div class="v" id="statHigh">–</div><div class="l">High relevance</div></div>
+    <div class="stat"><div class="v" id="statNew">–</div><div class="l">Needs review</div></div>
+    <div class="stat"><div class="v" id="statChecked">–</div><div class="l">Last checked</div></div>
+  </div>
+
+  <div class="controls">
+    <div>
+      <label for="q">Search</label>
+      <input type="text" id="q" placeholder="Title, source, keyword…">
+    </div>
+    <div>
+      <label for="fSource">Source</label>
+      <select id="fSource"><option value="">All sources</option></select>
+    </div>
+    <div>
+      <label for="fCategory">Category</label>
+      <select id="fCategory"><option value="">All categories</option></select>
+    </div>
+    <div>
+      <label for="fRelevance">Relevance</label>
+      <select id="fRelevance">
+        <option value="">All relevance</option>
+        <option value="High">High</option>
+        <option value="Medium">Medium</option>
+        <option value="Low">Low</option>
+      </select>
+    </div>
+    <div>
+      <label for="fSort">Sort</label>
+      <select id="fSort">
+        <option value="newest">Newest found</option>
+        <option value="relevance">Relevance</option>
+        <option value="source">Source</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="count-note" id="countNote"></div>
+  <div id="list"></div>
+  <div class="empty hidden" id="emptyState">No entries match those filters.</div>
+</div>
+
+<footer>
+  <div class="box">
+    This repository is maintained automatically by a weekly scheduled check plus manual runs. Every entry is AI-drafted — treat the impact assessment, suggested audit-program change, and client-readiness advisory as a starting point for the team's review, not a final determination or something to send to a client verbatim. Reopen this dashboard any time; it refreshes on the next scheduled run without any action needed from you.
+    <br><br>
+    Maintenance docs, setup, and continuity notes: <a href="https://github.com/duprleo/it-audit-compliance-dashboard-accounting" target="_blank" rel="noopener">github.com/duprleo/it-audit-compliance-dashboard-accounting</a> (see README.md).
+  </div>
+</footer>
+
+<script id="repo-data" type="application/json">[
+ {
+  "id": "ftc-safeguards-breach-notification-500-30-days",
+  "dateFound": "2026-10-21",
+  "publishedDate": "Final rule Nov 2023; effective May 13, 2024 (background — still the operative notice requirement)",
+  "source": "FTC",
+  "category": "Regulatory",
+  "guidanceType": "Rule Change",
+  "title": "FTC Safeguards Rule breach notification: notify the FTC within 30 days when unencrypted data of 500+ consumers is exposed",
+  "url": "https://www.ftc.gov/news-events/news/press-releases/2023/10/ftc-amends-safeguards-rule-require-non-banking-financial-institutions-report-data-security-breaches",
+  "relevance": "High",
+  "affectedAuditAreas": [
+   "Incident Response",
+   "Breach Notification"
+  ],
+  "impactAssessment": "Non-bank financial institutions, which explicitly include tax preparers and CPA firms, must notify the FTC no later than 30 days after discovering that unencrypted customer information of at least 500 consumers was acquired without authorization (16 CFR 314.4(j)). This has been in force since May 2024, but most small accounting firms still have no written trigger or owner for FTC notice, and Michigan's resident-notice duty runs in parallel.",
+  "suggestedAuditProgramChanges": "Add a test step confirming the incident response plan names the 500-consumer FTC threshold, the 30-day clock, who files the FTC online notice, and how the encryption status of exposed data is determined.",
+  "clientReadinessAdvisory": "This is a current legal requirement. Give accounting clients a one-page breach decision tree (FTC, IRS Stakeholder Liaison, Michigan resident notice, cyber insurer) with contacts filled in before filing season opens in January."
+ },
+ {
+  "id": "irs-pub-5708-wisp-template",
+  "dateFound": "2026-10-21",
+  "publishedDate": "Pub 5708 (current revision 2024); background reference still in active use for 2026 PTIN renewals",
+  "source": "IRS",
+  "category": "Regulatory",
+  "guidanceType": "Framework Guidance",
+  "title": "IRS Publication 5708: WISP template for tax professionals sets expectations for MFA, backup testing and vendor oversight",
+  "url": "https://www.irs.gov/pub/irs-pdf/p5708.pdf",
+  "relevance": "High",
+  "affectedAuditAreas": [
+   "WISP / Governance",
+   "Risk Assessment",
+   "Vendor/Third-Party Risk"
+  ],
+  "impactAssessment": "Publication 5708 turns the FTC Safeguards Rule into a structured written information security plan template for tax and accounting firms, with sections for the qualified individual, risk assessment, safeguards, service-provider oversight and incident response. It ties the WISP directly to GLBA and the FTC rule, so a policy binder without evidence behind each section no longer holds up.",
+  "suggestedAuditProgramChanges": "Map each 5708 section to an evidence request: named qualified individual, dated risk assessment, MFA coverage list, most recent backup restore test, and vendor review log.",
+  "clientReadinessAdvisory": "Offer clients a WISP gap review against Pub 5708 this fall; most small firms can close the gaps before January. Be clear the WISP itself is legally required, while 5708 is the IRS's recommended template rather than a mandatory format."
+ },
+ {
+  "id": "irs-form-w12-wisp-acknowledgment",
+  "dateFound": "2026-10-21",
+  "publishedDate": "Form W-12 line 11 acknowledgment, in use since the 2024 PTIN cycle (background; recurs every renewal season)",
+  "source": "IRS",
+  "category": "Regulatory",
+  "guidanceType": "Status Update",
+  "title": "PTIN renewal (Form W-12) requires each preparer to acknowledge the legal WISP requirement",
+  "url": "https://www.irs.gov/forms-pubs/about-form-w-12",
+  "relevance": "High",
+  "affectedAuditAreas": [
+   "WISP / Governance"
+  ],
+  "impactAssessment": "Every paid preparer acknowledges at PTIN renewal that they are aware paid tax return preparers are required by law to create and maintain a written information security plan. Each preparer is personally attesting, so a firm without a current WISP has staff signing an acknowledgment the firm cannot support.",
+  "suggestedAuditProgramChanges": "Confirm a WISP exists, was reviewed within the last 12 months, and that every preparer holding a PTIN has acknowledged reading it.",
+  "clientReadinessAdvisory": "PTIN renewal season opens in mid-October, so this is a timely conversation opener now: ask clients whether their WISP is current before staff complete their W-12 renewals."
+ },
+ {
+  "id": "ftc-safeguards-mfa-any-information-system",
+  "dateFound": "2026-10-21",
+  "publishedDate": "Amended rule effective June 9, 2023 (background — still the operative control requirement)",
+  "source": "FTC",
+  "category": "Regulatory",
+  "guidanceType": "Rule Change",
+  "title": "FTC Safeguards Rule requires MFA for any individual accessing any information system",
+  "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-C/part-314/section-314.4",
+  "relevance": "High",
+  "affectedAuditAreas": [
+   "Access Control",
+   "Identity & Authentication"
+  ],
+  "impactAssessment": "16 CFR 314.4(c)(5) requires multi-factor authentication for anyone accessing any information system, unless the qualified individual approves an equivalent control in writing. Gaps are common in small firms on tax software portals, remote desktop, email and cloud file storage used by seasonal staff.",
+  "suggestedAuditProgramChanges": "Sample accounts across tax software, email, file storage and remote access; verify MFA is enforced and that any exceptions have written approval from the qualified individual.",
+  "clientReadinessAdvisory": "Have clients inventory every login seasonal staff will use and enable MFA before onboarding them in December and January. This is a current legal requirement, not just best practice."
+ },
+ {
+  "id": "ftc-safeguards-encryption-transit-rest",
+  "dateFound": "2026-10-21",
+  "publishedDate": "Amended rule effective June 9, 2023 (background)",
+  "source": "FTC",
+  "category": "Regulatory",
+  "guidanceType": "Rule Change",
+  "title": "FTC Safeguards Rule requires encryption of customer information in transit and at rest",
+  "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-C/part-314/section-314.4",
+  "relevance": "High",
+  "affectedAuditAreas": [
+   "Data Protection / Encryption",
+   "Endpoint Security"
+  ],
+  "impactAssessment": "Customer information must be encrypted in transit over external networks and at rest (16 CFR 314.4(c)(3)); where infeasible, the qualified individual must approve effective alternative controls. Unencrypted laptops, USB drives and emailed PDFs of returns are the usual findings, and encryption status also decides whether a lost device triggers FTC breach notice.",
+  "suggestedAuditProgramChanges": "Verify full-disk encryption on all endpoints holding client data, and review how completed returns and source documents are exchanged with clients.",
+  "clientReadinessAdvisory": "Recommend clients move document exchange to a secure portal instead of email attachments and confirm drive encryption on every laptop before filing season."
+ },
+ {
+  "id": "ftc-safeguards-pentest-vuln-scan-cadence",
+  "dateFound": "2026-10-21",
+  "publishedDate": "Amended rule effective June 9, 2023 (background)",
+  "source": "FTC",
+  "category": "Regulatory",
+  "guidanceType": "Rule Change",
+  "title": "FTC Safeguards Rule: annual penetration testing and semiannual vulnerability scans unless continuously monitored",
+  "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-C/part-314/section-314.4",
+  "relevance": "High",
+  "affectedAuditAreas": [
+   "Vulnerability Management",
+   "Security Testing"
+  ],
+  "impactAssessment": "Firms without continuous monitoring must perform penetration testing at least annually and vulnerability assessments at least every six months, plus after material changes (16 CFR 314.4(d)(2)). Firms that maintain information on fewer than 5,000 consumers are exempt from this element, so scoping the consumer count is the first step.",
+  "suggestedAuditProgramChanges": "Document the firm's consumer count and method; for firms over the threshold, request the last penetration test report and two most recent vulnerability scans, or evidence of continuous monitoring.",
+  "clientReadinessAdvisory": "For clients over 5,000 consumers, schedule testing now so remediation lands before January; for smaller firms, explain the exemption but recommend at least an annual external scan."
+ },
+ {
+  "id": "ftc-safeguards-qualified-individual-outsourced",
+  "dateFound": "2026-10-21",
+  "publishedDate": "Amended rule effective June 9, 2023 (background)",
+  "source": "FTC",
+  "category": "Regulatory",
+  "guidanceType": "Framework Guidance",
+  "title": "Safeguards Rule qualified individual may be an outside service provider, with firm oversight",
+  "url": "https://www.ftc.gov/business-guidance/resources/ftc-safeguards-rule-what-your-business-needs-know",
+  "relevance": "Medium",
+  "affectedAuditAreas": [
+   "WISP / Governance",
+   "Vendor/Third-Party Risk"
+  ],
+  "impactAssessment": "Firms must designate one qualified individual to oversee the information security program (16 CFR 314.4(a)). That person can be an outside provider, but the firm keeps responsibility and must assign senior staff to supervise the provider. Many small firms have never formally named anyone.",
+  "suggestedAuditProgramChanges": "Confirm a named qualified individual in writing; if external, review the agreement and identify the internal staff member who oversees them.",
+  "clientReadinessAdvisory": "Small firms that cannot staff this role internally can use a virtual qualified individual service; raise it during WISP reviews as a practical way to meet the requirement."
+ },
+ {
+  "id": "ftc-safeguards-small-institution-exemption",
+  "dateFound": "2026-10-21",
+  "publishedDate": "Amended rule effective June 9, 2023 (background)",
+  "source": "FTC",
+  "category": "Regulatory",
+  "guidanceType": "Framework Guidance",
+  "title": "Firms with fewer than 5,000 consumers are exempt from several written Safeguards Rule elements",
+  "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-C/part-314/section-314.6",
+  "relevance": "Medium",
+  "affectedAuditAreas": [
+   "Scoping",
+   "Risk Assessment"
+  ],
+  "impactAssessment": "Institutions maintaining customer information on fewer than 5,000 consumers are exempt from the written risk assessment, penetration testing and scan cadence, written incident response plan, and annual report to leadership (16 CFR 314.6). All other elements still apply, and IRS Pub 4557/5708 still expect a written plan covering risk and incident response.",
+  "suggestedAuditProgramChanges": "Record the consumer count with date and method at the start of each engagement; treat exempt elements as best-practice tests rather than skipping them.",
+  "clientReadinessAdvisory": "Advise small firms to keep a written risk assessment and incident plan anyway, since the IRS, cyber insurers and attorneys will ask for them after an incident."
+ },
+ {
+  "id": "irs-pub-4557-security-six",
+  "dateFound": "2026-10-21",
+  "publishedDate": "Pub 4557 (current revision); background baseline for all tax professionals",
+  "source": "IRS",
+  "category": "Cybersecurity",
+  "guidanceType": "Framework Guidance",
+  "title": "IRS Publication 4557 'Security Six' baseline controls for every tax professional",
+  "url": "https://www.irs.gov/pub/irs-pdf/p4557.pdf",
+  "relevance": "Medium",
+  "affectedAuditAreas": [
+   "Endpoint Security",
+   "Network Security",
+   "Backup & Recovery"
+  ],
+  "impactAssessment": "Safeguarding Taxpayer Data sets the IRS baseline: anti-virus, firewalls, multi-factor authentication, backups, drive encryption and VPN for remote access, plus administrative and physical safeguards. These six controls are what clients understand most easily and what attorneys and insurers ask about first after a breach.",
+  "suggestedAuditProgramChanges": "Use the Security Six as a quick-scan checklist at the start of each engagement before deeper Safeguards Rule testing.",
+  "clientReadinessAdvisory": "Lead client conversations with a Security Six scorecard; it shows progress quickly and builds trust for the larger WISP engagement."
+ },
+ {
+  "id": "irs-data-theft-stakeholder-liaison",
+  "dateFound": "2026-10-21",
+  "publishedDate": "IRS data theft guidance for tax professionals (ongoing; background)",
+  "source": "IRS",
+  "category": "Regulatory",
+  "guidanceType": "Framework Guidance",
+  "title": "IRS: report data theft to your Stakeholder Liaison immediately",
+  "url": "https://www.irs.gov/individuals/data-theft-information-for-tax-professionals",
+  "relevance": "Medium",
+  "affectedAuditAreas": [
+   "Incident Response"
+  ],
+  "impactAssessment": "Tax professionals who suffer data theft should contact their IRS Stakeholder Liaison right away so the IRS can protect affected taxpayers' accounts, and also notify state tax agencies. IRS reporting has no consumer threshold and is separate from FTC notice; speed limits fraudulent returns filed in clients' names.",
+  "suggestedAuditProgramChanges": "Verify the incident response plan lists the local IRS Stakeholder Liaison and Michigan Department of Treasury contacts.",
+  "clientReadinessAdvisory": "Add the Michigan Stakeholder Liaison contact to each client's incident plan during the fall readiness review."
+ },
+ {
+  "id": "mi-identity-theft-protection-act-breach-notice",
+  "dateFound": "2026-10-21",
+  "publishedDate": "MCL 445.72 (in force; background)",
+  "source": "Michigan",
+  "category": "Regulatory",
+  "guidanceType": "Framework Guidance",
+  "title": "Michigan Identity Theft Protection Act: breach notice to affected Michigan residents",
+  "url": "https://www.legislature.mi.gov/Laws/MCL?objectName=mcl-445-72",
+  "relevance": "Medium",
+  "affectedAuditAreas": [
+   "Breach Notification",
+   "Incident Response"
+  ],
+  "impactAssessment": "Michigan requires businesses to notify affected residents of a security breach of their personal information without unreasonable delay, unless the business determines the breach is not likely to cause substantial loss or injury. This applies regardless of the FTC's 500-consumer threshold, so even small incidents can require client letters.",
+  "suggestedAuditProgramChanges": "Confirm the incident response plan addresses Michigan resident notice and includes a draft notice template and decision record for the 'no substantial loss' determination.",
+  "clientReadinessAdvisory": "Pre-draft a client notification letter template with each Michigan accounting client so it is ready if needed during filing season."
+ },
+ {
+  "id": "irs-pub-5293-staff-training",
+  "dateFound": "2026-10-21",
+  "publishedDate": "Pub 5293 (current revision; background)",
+  "source": "IRS",
+  "category": "Cybersecurity",
+  "guidanceType": "Framework Guidance",
+  "title": "IRS Publication 5293: data security resource guide usable for staff training",
+  "url": "https://www.irs.gov/pub/irs-pdf/p5293.pdf",
+  "relevance": "Low",
+  "affectedAuditAreas": [
+   "Security Awareness Training"
+  ],
+  "impactAssessment": "A plain-language guide covering phishing awareness, signs of identity theft and steps after data loss. It is useful free training material for seasonal staff, who are the most frequent phishing targets during filing season.",
+  "suggestedAuditProgramChanges": "Confirm all staff, including seasonal hires, completed security training before handling client data (Safeguards Rule 16 CFR 314.4(e)).",
+  "clientReadinessAdvisory": "Package Pub 5293 into a short pre-season training session for client staff; low effort and directly supports the training requirement."
+ },
+ {
+  "id": "nist-ir-7621r1-small-business-fundamentals",
+  "dateFound": "2026-10-21",
+  "publishedDate": "NIST IR 7621 Rev. 1 (2016; background reference cited alongside IRS Pub 4557)",
+  "source": "NIST",
+  "category": "Cybersecurity",
+  "guidanceType": "Framework Guidance",
+  "title": "NIST IR 7621 Rev. 1: Small Business Information Security — The Fundamentals",
+  "url": "https://csrc.nist.gov/pubs/ir/7621/r1/final",
+  "relevance": "Low",
+  "affectedAuditAreas": [
+   "Risk Assessment"
+  ],
+  "impactAssessment": "NIST's small-business guide gives firms a recognized identify-protect-detect-respond-recover structure for their risk assessment without adopting the full NIST CSF. It is older background guidance, but the IRS points tax professionals to it when building a security plan.",
+  "suggestedAuditProgramChanges": "No dedicated audit step needed at this time; accept a 7621-based risk assessment as evidence for the written risk assessment element.",
+  "clientReadinessAdvisory": "No proactive outreach needed at this time; offer a 7621-based risk assessment worksheet when a client needs a starting point."
+ }
+]</script>
+
+<script id="repo-meta" type="application/json">{
+ "lastChecked": "2026-10-22T03:55:00Z",
+ "sourcesMonitored": [
+  "FTC",
+  "IRS",
+  "AICPA",
+  "NIST",
+  "CISA",
+  "Michigan"
+ ],
+ "checkHistory": [
+  {
+   "date": "2026-10-22T03:55:00Z",
+   "newItems": 13,
+   "note": "Initial seed run: drafted 13 entries covering the FTC Safeguards Rule elements most relevant to accounting and tax firms (breach notification, MFA, encryption, testing cadence, qualified individual, small-institution exemption), IRS Pubs 4557, 5708 and 5293, the Form W-12 WISP acknowledgment, IRS data-theft reporting, Michigan's breach notice law, and NIST IR 7621. Most are background requirements still in force rather than new releases; weekly runs will add genuinely new guidance."
+  }
+ ]
+}</script>
+
+<script>
+const $ = id => document.getElementById(id);
+const DATA = JSON.parse(document.getElementById("repo-data").textContent);
+const META = JSON.parse(document.getElementById("repo-meta").textContent);
+
+function relClass(r){
+  r = (r || "").toLowerCase();
+  if (r === "high") return "rel-high";
+  if (r === "medium") return "rel-medium";
+  return "rel-low";
+}
+
+function fmtDate(iso){
+  try { return new Date(iso).toLocaleDateString(undefined, {year:"numeric", month:"short", day:"numeric"}); }
+  catch(e){ return iso; }
+}
+
+function populateFilters(){
+  const sources = [...new Set(DATA.map(d => d.source))].sort();
+  const cats = [...new Set(DATA.map(d => d.category))].sort();
+  $("fSource").innerHTML = '<option value="">All sources</option>' + sources.map(s => `<option value="${s}">${s}</option>`).join("");
+  $("fCategory").innerHTML = '<option value="">All categories</option>' + cats.map(c => `<option value="${c}">${c}</option>`).join("");
+}
+
+function renderStats(filtered){
+  $("statTotal").textContent = DATA.length;
+  $("statHigh").textContent = DATA.filter(d => d.relevance === "High").length;
+  $("statNew").textContent = DATA.length;
+  $("statChecked").textContent = fmtDate(META.lastChecked);
+}
+
+const relOrder = {High:0, Medium:1, Low:2};
+
+function applyFilters(){
+  const q = $("q").value.trim().toLowerCase();
+  const src = $("fSource").value;
+  const cat = $("fCategory").value;
+  const rel = $("fRelevance").value;
+  const sort = $("fSort").value;
+
+  let out = DATA.filter(d => {
+    if (src && d.source !== src) return false;
+    if (cat && d.category !== cat) return false;
+    if (rel && d.relevance !== rel) return false;
+    if (q){
+      const hay = [d.title, d.source, d.impactAssessment, d.suggestedAuditProgramChanges, d.clientReadinessAdvisory, (d.affectedAuditAreas||[]).join(" ")].join(" ").toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  if (sort === "newest") out.sort((a,b) => (b.dateFound || "").localeCompare(a.dateFound || ""));
+  else if (sort === "relevance") out.sort((a,b) => (relOrder[a.relevance] ?? 9) - (relOrder[b.relevance] ?? 9));
+  else if (sort === "source") out.sort((a,b) => (a.source || "").localeCompare(b.source || ""));
+
+  render(out);
+}
+
+function render(items){
+  $("countNote").textContent = `Showing ${items.length} of ${DATA.length} tracked item${DATA.length === 1 ? "" : "s"}.`;
+  const list = $("list");
+  const empty = $("emptyState");
+  if (!items.length){
+    list.innerHTML = "";
+    empty.classList.remove("hidden");
+    return;
+  }
+  empty.classList.add("hidden");
+  list.innerHTML = items.map(d => `
+    <div class="entry">
+      <div class="entry-top">
+        <div>
+          <div class="entry-title"><a href="${d.url}" target="_blank" rel="noopener">${d.title}</a></div>
+          <div class="entry-meta">${d.source} · found ${fmtDate(d.dateFound)}${d.publishedDate ? " · published " + d.publishedDate : ""}</div>
+        </div>
+        <div class="badges">
+          <span class="badge rel-${(d.relevance||"").toLowerCase()}">${d.relevance || "?"} relevance</span>
+          <span class="badge cat">${d.category}</span>
+          <span class="badge type">${d.guidanceType}</span>
+        </div>
+      </div>
+      <div class="entry-body">
+        <div class="block">
+          <h4>Impact on IT audit &amp; compliance</h4>
+          <p>${d.impactAssessment}</p>
+        </div>
+        <div class="block">
+          <h4>Suggested audit program change</h4>
+          <p>${d.suggestedAuditProgramChanges}</p>
+        </div>
+        <div class="block advisory">
+          <h4>Client readiness advisory</h4>
+          <p>${d.clientReadinessAdvisory || ""}</p>
+        </div>
+      </div>
+      <div class="areas">${(d.affectedAuditAreas||[]).map(a => `<span>${a}</span>`).join("")}</div>
+    </div>
+  `).join("");
+}
+
+populateFilters();
+renderStats(DATA);
+render(DATA);
+
+["q","fSource","fCategory","fRelevance","fSort"].forEach(id => {
+  $(id).addEventListener("input", applyFilters);
+  $(id).addEventListener("change", applyFilters);
+});
+</script>
+
+</body>
+</html>
