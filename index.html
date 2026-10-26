@@ -136,259 +136,304 @@
   </div>
 </footer>
 
-<script id="repo-data" type="application/json">[
- {
-  "id": "ftc-safeguards-breach-notification-500-30-days",
-  "dateFound": "2026-10-21",
-  "publishedDate": "Final rule Nov 2023; effective May 13, 2024 (background — still the operative notice requirement)",
-  "source": "FTC",
-  "category": "Regulatory",
-  "guidanceType": "Rule Change",
-  "title": "FTC Safeguards Rule breach notification: notify the FTC within 30 days when unencrypted data of 500+ consumers is exposed",
-  "url": "https://www.ftc.gov/news-events/news/press-releases/2023/10/ftc-amends-safeguards-rule-require-non-banking-financial-institutions-report-data-security-breaches",
-  "relevance": "High",
-  "affectedAuditAreas": [
-   "Incident Response",
-   "Breach Notification"
-  ],
-  "impactAssessment": "Non-bank financial institutions, which explicitly include tax preparers and CPA firms, must notify the FTC no later than 30 days after discovering that unencrypted customer information of at least 500 consumers was acquired without authorization (16 CFR 314.4(j)). This has been in force since May 2024, but most small accounting firms still have no written trigger or owner for FTC notice, and Michigan's resident-notice duty runs in parallel.",
-  "suggestedAuditProgramChanges": "Add a test step confirming the incident response plan names the 500-consumer FTC threshold, the 30-day clock, who files the FTC online notice, and how the encryption status of exposed data is determined.",
-  "clientReadinessAdvisory": "This is a current legal requirement. Give accounting clients a one-page breach decision tree (FTC, IRS Stakeholder Liaison, Michigan resident notice, cyber insurer) with contacts filled in before filing season opens in January."
- },
- {
-  "id": "irs-pub-5708-wisp-template",
-  "dateFound": "2026-10-21",
-  "publishedDate": "Pub 5708 (current revision 2024); background reference still in active use for 2026 PTIN renewals",
-  "source": "IRS",
-  "category": "Regulatory",
-  "guidanceType": "Framework Guidance",
-  "title": "IRS Publication 5708: WISP template for tax professionals sets expectations for MFA, backup testing and vendor oversight",
-  "url": "https://www.irs.gov/pub/irs-pdf/p5708.pdf",
-  "relevance": "High",
-  "affectedAuditAreas": [
-   "WISP / Governance",
-   "Risk Assessment",
-   "Vendor/Third-Party Risk"
-  ],
-  "impactAssessment": "Publication 5708 turns the FTC Safeguards Rule into a structured written information security plan template for tax and accounting firms, with sections for the qualified individual, risk assessment, safeguards, service-provider oversight and incident response. It ties the WISP directly to GLBA and the FTC rule, so a policy binder without evidence behind each section no longer holds up.",
-  "suggestedAuditProgramChanges": "Map each 5708 section to an evidence request: named qualified individual, dated risk assessment, MFA coverage list, most recent backup restore test, and vendor review log.",
-  "clientReadinessAdvisory": "Offer clients a WISP gap review against Pub 5708 this fall; most small firms can close the gaps before January. Be clear the WISP itself is legally required, while 5708 is the IRS's recommended template rather than a mandatory format."
- },
- {
-  "id": "irs-form-w12-wisp-acknowledgment",
-  "dateFound": "2026-10-21",
-  "publishedDate": "Form W-12 line 11 acknowledgment, in use since the 2024 PTIN cycle (background; recurs every renewal season)",
-  "source": "IRS",
-  "category": "Regulatory",
-  "guidanceType": "Status Update",
-  "title": "PTIN renewal (Form W-12) requires each preparer to acknowledge the legal WISP requirement",
-  "url": "https://www.irs.gov/forms-pubs/about-form-w-12",
-  "relevance": "High",
-  "affectedAuditAreas": [
-   "WISP / Governance"
-  ],
-  "impactAssessment": "Every paid preparer acknowledges at PTIN renewal that they are aware paid tax return preparers are required by law to create and maintain a written information security plan. Each preparer is personally attesting, so a firm without a current WISP has staff signing an acknowledgment the firm cannot support.",
-  "suggestedAuditProgramChanges": "Confirm a WISP exists, was reviewed within the last 12 months, and that every preparer holding a PTIN has acknowledged reading it.",
-  "clientReadinessAdvisory": "PTIN renewal season opens in mid-October, so this is a timely conversation opener now: ask clients whether their WISP is current before staff complete their W-12 renewals."
- },
- {
-  "id": "ftc-safeguards-mfa-any-information-system",
-  "dateFound": "2026-10-21",
-  "publishedDate": "Amended rule effective June 9, 2023 (background — still the operative control requirement)",
-  "source": "FTC",
-  "category": "Regulatory",
-  "guidanceType": "Rule Change",
-  "title": "FTC Safeguards Rule requires MFA for any individual accessing any information system",
-  "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-C/part-314/section-314.4",
-  "relevance": "High",
-  "affectedAuditAreas": [
-   "Access Control",
-   "Identity & Authentication"
-  ],
-  "impactAssessment": "16 CFR 314.4(c)(5) requires multi-factor authentication for anyone accessing any information system, unless the qualified individual approves an equivalent control in writing. Gaps are common in small firms on tax software portals, remote desktop, email and cloud file storage used by seasonal staff.",
-  "suggestedAuditProgramChanges": "Sample accounts across tax software, email, file storage and remote access; verify MFA is enforced and that any exceptions have written approval from the qualified individual.",
-  "clientReadinessAdvisory": "Have clients inventory every login seasonal staff will use and enable MFA before onboarding them in December and January. This is a current legal requirement, not just best practice."
- },
- {
-  "id": "ftc-safeguards-encryption-transit-rest",
-  "dateFound": "2026-10-21",
-  "publishedDate": "Amended rule effective June 9, 2023 (background)",
-  "source": "FTC",
-  "category": "Regulatory",
-  "guidanceType": "Rule Change",
-  "title": "FTC Safeguards Rule requires encryption of customer information in transit and at rest",
-  "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-C/part-314/section-314.4",
-  "relevance": "High",
-  "affectedAuditAreas": [
-   "Data Protection / Encryption",
-   "Endpoint Security"
-  ],
-  "impactAssessment": "Customer information must be encrypted in transit over external networks and at rest (16 CFR 314.4(c)(3)); where infeasible, the qualified individual must approve effective alternative controls. Unencrypted laptops, USB drives and emailed PDFs of returns are the usual findings, and encryption status also decides whether a lost device triggers FTC breach notice.",
-  "suggestedAuditProgramChanges": "Verify full-disk encryption on all endpoints holding client data, and review how completed returns and source documents are exchanged with clients.",
-  "clientReadinessAdvisory": "Recommend clients move document exchange to a secure portal instead of email attachments and confirm drive encryption on every laptop before filing season."
- },
- {
-  "id": "ftc-safeguards-pentest-vuln-scan-cadence",
-  "dateFound": "2026-10-21",
-  "publishedDate": "Amended rule effective June 9, 2023 (background)",
-  "source": "FTC",
-  "category": "Regulatory",
-  "guidanceType": "Rule Change",
-  "title": "FTC Safeguards Rule: annual penetration testing and semiannual vulnerability scans unless continuously monitored",
-  "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-C/part-314/section-314.4",
-  "relevance": "High",
-  "affectedAuditAreas": [
-   "Vulnerability Management",
-   "Security Testing"
-  ],
-  "impactAssessment": "Firms without continuous monitoring must perform penetration testing at least annually and vulnerability assessments at least every six months, plus after material changes (16 CFR 314.4(d)(2)). Firms that maintain information on fewer than 5,000 consumers are exempt from this element, so scoping the consumer count is the first step.",
-  "suggestedAuditProgramChanges": "Document the firm's consumer count and method; for firms over the threshold, request the last penetration test report and two most recent vulnerability scans, or evidence of continuous monitoring.",
-  "clientReadinessAdvisory": "For clients over 5,000 consumers, schedule testing now so remediation lands before January; for smaller firms, explain the exemption but recommend at least an annual external scan."
- },
- {
-  "id": "ftc-safeguards-qualified-individual-outsourced",
-  "dateFound": "2026-10-21",
-  "publishedDate": "Amended rule effective June 9, 2023 (background)",
-  "source": "FTC",
-  "category": "Regulatory",
-  "guidanceType": "Framework Guidance",
-  "title": "Safeguards Rule qualified individual may be an outside service provider, with firm oversight",
-  "url": "https://www.ftc.gov/business-guidance/resources/ftc-safeguards-rule-what-your-business-needs-know",
-  "relevance": "Medium",
-  "affectedAuditAreas": [
-   "WISP / Governance",
-   "Vendor/Third-Party Risk"
-  ],
-  "impactAssessment": "Firms must designate one qualified individual to oversee the information security program (16 CFR 314.4(a)). That person can be an outside provider, but the firm keeps responsibility and must assign senior staff to supervise the provider. Many small firms have never formally named anyone.",
-  "suggestedAuditProgramChanges": "Confirm a named qualified individual in writing; if external, review the agreement and identify the internal staff member who oversees them.",
-  "clientReadinessAdvisory": "Small firms that cannot staff this role internally can use a virtual qualified individual service; raise it during WISP reviews as a practical way to meet the requirement."
- },
- {
-  "id": "ftc-safeguards-small-institution-exemption",
-  "dateFound": "2026-10-21",
-  "publishedDate": "Amended rule effective June 9, 2023 (background)",
-  "source": "FTC",
-  "category": "Regulatory",
-  "guidanceType": "Framework Guidance",
-  "title": "Firms with fewer than 5,000 consumers are exempt from several written Safeguards Rule elements",
-  "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-C/part-314/section-314.6",
-  "relevance": "Medium",
-  "affectedAuditAreas": [
-   "Scoping",
-   "Risk Assessment"
-  ],
-  "impactAssessment": "Institutions maintaining customer information on fewer than 5,000 consumers are exempt from the written risk assessment, penetration testing and scan cadence, written incident response plan, and annual report to leadership (16 CFR 314.6). All other elements still apply, and IRS Pub 4557/5708 still expect a written plan covering risk and incident response.",
-  "suggestedAuditProgramChanges": "Record the consumer count with date and method at the start of each engagement; treat exempt elements as best-practice tests rather than skipping them.",
-  "clientReadinessAdvisory": "Advise small firms to keep a written risk assessment and incident plan anyway, since the IRS, cyber insurers and attorneys will ask for them after an incident."
- },
- {
-  "id": "irs-pub-4557-security-six",
-  "dateFound": "2026-10-21",
-  "publishedDate": "Pub 4557 (current revision); background baseline for all tax professionals",
-  "source": "IRS",
-  "category": "Cybersecurity",
-  "guidanceType": "Framework Guidance",
-  "title": "IRS Publication 4557 'Security Six' baseline controls for every tax professional",
-  "url": "https://www.irs.gov/pub/irs-pdf/p4557.pdf",
-  "relevance": "Medium",
-  "affectedAuditAreas": [
-   "Endpoint Security",
-   "Network Security",
-   "Backup & Recovery"
-  ],
-  "impactAssessment": "Safeguarding Taxpayer Data sets the IRS baseline: anti-virus, firewalls, multi-factor authentication, backups, drive encryption and VPN for remote access, plus administrative and physical safeguards. These six controls are what clients understand most easily and what attorneys and insurers ask about first after a breach.",
-  "suggestedAuditProgramChanges": "Use the Security Six as a quick-scan checklist at the start of each engagement before deeper Safeguards Rule testing.",
-  "clientReadinessAdvisory": "Lead client conversations with a Security Six scorecard; it shows progress quickly and builds trust for the larger WISP engagement."
- },
- {
-  "id": "irs-data-theft-stakeholder-liaison",
-  "dateFound": "2026-10-21",
-  "publishedDate": "IRS data theft guidance for tax professionals (ongoing; background)",
-  "source": "IRS",
-  "category": "Regulatory",
-  "guidanceType": "Framework Guidance",
-  "title": "IRS: report data theft to your Stakeholder Liaison immediately",
-  "url": "https://www.irs.gov/individuals/data-theft-information-for-tax-professionals",
-  "relevance": "Medium",
-  "affectedAuditAreas": [
-   "Incident Response"
-  ],
-  "impactAssessment": "Tax professionals who suffer data theft should contact their IRS Stakeholder Liaison right away so the IRS can protect affected taxpayers' accounts, and also notify state tax agencies. IRS reporting has no consumer threshold and is separate from FTC notice; speed limits fraudulent returns filed in clients' names.",
-  "suggestedAuditProgramChanges": "Verify the incident response plan lists the local IRS Stakeholder Liaison and Michigan Department of Treasury contacts.",
-  "clientReadinessAdvisory": "Add the Michigan Stakeholder Liaison contact to each client's incident plan during the fall readiness review."
- },
- {
-  "id": "mi-identity-theft-protection-act-breach-notice",
-  "dateFound": "2026-10-21",
-  "publishedDate": "MCL 445.72 (in force; background)",
-  "source": "Michigan",
-  "category": "Regulatory",
-  "guidanceType": "Framework Guidance",
-  "title": "Michigan Identity Theft Protection Act: breach notice to affected Michigan residents",
-  "url": "https://www.legislature.mi.gov/Laws/MCL?objectName=mcl-445-72",
-  "relevance": "Medium",
-  "affectedAuditAreas": [
-   "Breach Notification",
-   "Incident Response"
-  ],
-  "impactAssessment": "Michigan requires businesses to notify affected residents of a security breach of their personal information without unreasonable delay, unless the business determines the breach is not likely to cause substantial loss or injury. This applies regardless of the FTC's 500-consumer threshold, so even small incidents can require client letters.",
-  "suggestedAuditProgramChanges": "Confirm the incident response plan addresses Michigan resident notice and includes a draft notice template and decision record for the 'no substantial loss' determination.",
-  "clientReadinessAdvisory": "Pre-draft a client notification letter template with each Michigan accounting client so it is ready if needed during filing season."
- },
- {
-  "id": "irs-pub-5293-staff-training",
-  "dateFound": "2026-10-21",
-  "publishedDate": "Pub 5293 (current revision; background)",
-  "source": "IRS",
-  "category": "Cybersecurity",
-  "guidanceType": "Framework Guidance",
-  "title": "IRS Publication 5293: data security resource guide usable for staff training",
-  "url": "https://www.irs.gov/pub/irs-pdf/p5293.pdf",
-  "relevance": "Low",
-  "affectedAuditAreas": [
-   "Security Awareness Training"
-  ],
-  "impactAssessment": "A plain-language guide covering phishing awareness, signs of identity theft and steps after data loss. It is useful free training material for seasonal staff, who are the most frequent phishing targets during filing season.",
-  "suggestedAuditProgramChanges": "Confirm all staff, including seasonal hires, completed security training before handling client data (Safeguards Rule 16 CFR 314.4(e)).",
-  "clientReadinessAdvisory": "Package Pub 5293 into a short pre-season training session for client staff; low effort and directly supports the training requirement."
- },
- {
-  "id": "nist-ir-7621r1-small-business-fundamentals",
-  "dateFound": "2026-10-21",
-  "publishedDate": "NIST IR 7621 Rev. 1 (2016; background reference cited alongside IRS Pub 4557)",
-  "source": "NIST",
-  "category": "Cybersecurity",
-  "guidanceType": "Framework Guidance",
-  "title": "NIST IR 7621 Rev. 1: Small Business Information Security — The Fundamentals",
-  "url": "https://csrc.nist.gov/pubs/ir/7621/r1/final",
-  "relevance": "Low",
-  "affectedAuditAreas": [
-   "Risk Assessment"
-  ],
-  "impactAssessment": "NIST's small-business guide gives firms a recognized identify-protect-detect-respond-recover structure for their risk assessment without adopting the full NIST CSF. It is older background guidance, but the IRS points tax professionals to it when building a security plan.",
-  "suggestedAuditProgramChanges": "No dedicated audit step needed at this time; accept a 7621-based risk assessment as evidence for the written risk assessment element.",
-  "clientReadinessAdvisory": "No proactive outreach needed at this time; offer a 7621-based risk assessment worksheet when a client needs a starting point."
- }
-]</script>
-
-<script id="repo-meta" type="application/json">{
- "lastChecked": "2026-10-22T03:55:00Z",
- "sourcesMonitored": [
-  "FTC",
-  "IRS",
-  "AICPA",
-  "NIST",
-  "CISA",
-  "Michigan"
- ],
- "checkHistory": [
+<script id="repo-data" type="application/json">
+[
   {
-   "date": "2026-10-22T03:55:00Z",
-   "newItems": 13,
-   "note": "Initial seed run: drafted 13 entries covering the FTC Safeguards Rule elements most relevant to accounting and tax firms (breach notification, MFA, encryption, testing cadence, qualified individual, small-institution exemption), IRS Pubs 4557, 5708 and 5293, the Form W-12 WISP acknowledgment, IRS data-theft reporting, Michigan's breach notice law, and NIST IR 7621. Most are background requirements still in force rather than new releases; weekly runs will add genuinely new guidance."
+    "id": "cisa-aa26-293a-safepay-ransomware",
+    "dateFound": "2026-10-26",
+    "publishedDate": "October 20, 2026 (joint advisory AA26-293A, final as published)",
+    "source": "CISA (joint with FBI, USSS and international partners)",
+    "category": "Cybersecurity",
+    "guidanceType": "Advisory",
+    "title": "#StopRansomware: SafePay ransomware gets in through exposed credentials and unpatched VPN/backup servers, then wipes backups before encrypting",
+    "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-293a",
+    "relevance": "Medium",
+    "affectedAuditAreas": [
+      "Vulnerability & Patch Management",
+      "Backup & Recovery",
+      "Access Control"
+    ],
+    "impactAssessment": "The advisory reports 600+ SafePay victims across sectors and does not single out accounting firms, so it isn't aimed at our clients specifically. But the ways in that it names — reused/exposed credentials, brute force, phishing, and known-exploited flaws in Cisco ASA/FTD VPNs, SonicWall firewalls and Veeam Backup & Replication (e.g., CVE-2024-40711, CVE-2024-40766) — are common in small CPA and tax-prep environments. The actors also stop Volume Shadow Copy and factory-reset backup NAS devices, which undermines the backup and recovery controls a WISP relies on.",
+    "suggestedAuditProgramChanges": "In the vulnerability management test, check firewall/VPN and backup-server versions against the CVEs listed in AA26-293A and confirm MFA on all VPN and admin access. In the backup test, confirm at least one backup copy is offline or immutable and cannot be reached with domain or NAS admin credentials, and get evidence of a recent restore test.",
+    "clientReadinessAdvisory": "Good practice, not a new legal requirement (though it supports the Safeguards Rule's existing MFA and testing elements): suggest that clients running SonicWall, Cisco ASA or Veeam confirm with their IT provider that those systems are patched, and that their backups include an offline or immutable copy kept apart from the office NAS."
+  },
+  {
+    "id": "irs-ir-2026-127-ip-pin-before-november-shutdown",
+    "dateFound": "2026-10-26",
+    "publishedDate": "October 22, 2026 (IR-2026-127; taxpayer-facing reminder)",
+    "source": "IRS",
+    "category": "Cybersecurity",
+    "guidanceType": "Advisory",
+    "title": "IRS urges taxpayers to protect online-account credentials and request IP PINs before the tool's mid-November maintenance outage",
+    "url": "https://www.irs.gov/newsroom/irs-reminder-take-steps-now-to-protect-tax-information",
+    "relevance": "Low",
+    "affectedAuditAreas": [
+      "Client Identity Protection"
+    ],
+    "impactAssessment": "This release is addressed to individual taxpayers, not tax professionals, and it adds no new preparer control requirements. The one point with a time limit is that the online IP PIN tool goes down for annual maintenance in mid-November and generally comes back in mid-January, so clients who file early would have to get one before November.",
+    "suggestedAuditProgramChanges": "No dedicated audit step needed at this time.",
+    "clientReadinessAdvisory": "Optional and good practice only: accounting and tax-prep clients may want to tell their own early-filing taxpayer clients, especially prior identity-theft victims, to request an IP PIN before mid-November and to share it only with their preparer when the return is filed."
+  },
+  {
+    "id": "ftc-safeguards-breach-notification-500-30-days",
+    "dateFound": "2026-10-21",
+    "publishedDate": "Final rule Nov 2023; effective May 13, 2024 (background — still the operative notice requirement)",
+    "source": "FTC",
+    "category": "Regulatory",
+    "guidanceType": "Rule Change",
+    "title": "FTC Safeguards Rule breach notification: notify the FTC within 30 days when unencrypted data of 500+ consumers is exposed",
+    "url": "https://www.ftc.gov/news-events/news/press-releases/2023/10/ftc-amends-safeguards-rule-require-non-banking-financial-institutions-report-data-security-breaches",
+    "relevance": "High",
+    "affectedAuditAreas": [
+      "Incident Response",
+      "Breach Notification"
+    ],
+    "impactAssessment": "Non-bank financial institutions, which explicitly include tax preparers and CPA firms, must notify the FTC no later than 30 days after discovering that unencrypted customer information of at least 500 consumers was acquired without authorization (16 CFR 314.4(j)). This has been in force since May 2024, but most small accounting firms still have no written trigger or owner for FTC notice, and Michigan's resident-notice duty runs in parallel.",
+    "suggestedAuditProgramChanges": "Add a test step confirming the incident response plan names the 500-consumer FTC threshold, the 30-day clock, who files the FTC online notice, and how the encryption status of exposed data is determined.",
+    "clientReadinessAdvisory": "This is a current legal requirement. Give accounting clients a one-page breach decision tree (FTC, IRS Stakeholder Liaison, Michigan resident notice, cyber insurer) with contacts filled in before filing season opens in January."
+  },
+  {
+    "id": "irs-pub-5708-wisp-template",
+    "dateFound": "2026-10-21",
+    "publishedDate": "Pub 5708 (current revision 2024); background reference still in active use for 2026 PTIN renewals",
+    "source": "IRS",
+    "category": "Regulatory",
+    "guidanceType": "Framework Guidance",
+    "title": "IRS Publication 5708: WISP template for tax professionals sets expectations for MFA, backup testing and vendor oversight",
+    "url": "https://www.irs.gov/pub/irs-pdf/p5708.pdf",
+    "relevance": "High",
+    "affectedAuditAreas": [
+      "WISP / Governance",
+      "Risk Assessment",
+      "Vendor/Third-Party Risk"
+    ],
+    "impactAssessment": "Publication 5708 turns the FTC Safeguards Rule into a structured written information security plan template for tax and accounting firms, with sections for the qualified individual, risk assessment, safeguards, service-provider oversight and incident response. It ties the WISP directly to GLBA and the FTC rule, so a policy binder without evidence behind each section no longer holds up.",
+    "suggestedAuditProgramChanges": "Map each 5708 section to an evidence request: named qualified individual, dated risk assessment, MFA coverage list, most recent backup restore test, and vendor review log.",
+    "clientReadinessAdvisory": "Offer clients a WISP gap review against Pub 5708 this fall; most small firms can close the gaps before January. Be clear the WISP itself is legally required, while 5708 is the IRS's recommended template rather than a mandatory format."
+  },
+  {
+    "id": "irs-form-w12-wisp-acknowledgment",
+    "dateFound": "2026-10-21",
+    "publishedDate": "Form W-12 line 11 acknowledgment, in use since the 2024 PTIN cycle (background; recurs every renewal season)",
+    "source": "IRS",
+    "category": "Regulatory",
+    "guidanceType": "Status Update",
+    "title": "PTIN renewal (Form W-12) requires each preparer to acknowledge the legal WISP requirement",
+    "url": "https://www.irs.gov/forms-pubs/about-form-w-12",
+    "relevance": "High",
+    "affectedAuditAreas": [
+      "WISP / Governance"
+    ],
+    "impactAssessment": "Every paid preparer acknowledges at PTIN renewal that they are aware paid tax return preparers are required by law to create and maintain a written information security plan. Each preparer is personally attesting, so a firm without a current WISP has staff signing an acknowledgment the firm cannot support.",
+    "suggestedAuditProgramChanges": "Confirm a WISP exists, was reviewed within the last 12 months, and that every preparer holding a PTIN has acknowledged reading it.",
+    "clientReadinessAdvisory": "PTIN renewal season opens in mid-October, so this is a timely conversation opener now: ask clients whether their WISP is current before staff complete their W-12 renewals."
+  },
+  {
+    "id": "ftc-safeguards-mfa-any-information-system",
+    "dateFound": "2026-10-21",
+    "publishedDate": "Amended rule effective June 9, 2023 (background — still the operative control requirement)",
+    "source": "FTC",
+    "category": "Regulatory",
+    "guidanceType": "Rule Change",
+    "title": "FTC Safeguards Rule requires MFA for any individual accessing any information system",
+    "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-C/part-314/section-314.4",
+    "relevance": "High",
+    "affectedAuditAreas": [
+      "Access Control",
+      "Identity & Authentication"
+    ],
+    "impactAssessment": "16 CFR 314.4(c)(5) requires multi-factor authentication for anyone accessing any information system, unless the qualified individual approves an equivalent control in writing. Gaps are common in small firms on tax software portals, remote desktop, email and cloud file storage used by seasonal staff.",
+    "suggestedAuditProgramChanges": "Sample accounts across tax software, email, file storage and remote access; verify MFA is enforced and that any exceptions have written approval from the qualified individual.",
+    "clientReadinessAdvisory": "Have clients inventory every login seasonal staff will use and enable MFA before onboarding them in December and January. This is a current legal requirement, not just best practice."
+  },
+  {
+    "id": "ftc-safeguards-encryption-transit-rest",
+    "dateFound": "2026-10-21",
+    "publishedDate": "Amended rule effective June 9, 2023 (background)",
+    "source": "FTC",
+    "category": "Regulatory",
+    "guidanceType": "Rule Change",
+    "title": "FTC Safeguards Rule requires encryption of customer information in transit and at rest",
+    "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-C/part-314/section-314.4",
+    "relevance": "High",
+    "affectedAuditAreas": [
+      "Data Protection / Encryption",
+      "Endpoint Security"
+    ],
+    "impactAssessment": "Customer information must be encrypted in transit over external networks and at rest (16 CFR 314.4(c)(3)); where infeasible, the qualified individual must approve effective alternative controls. Unencrypted laptops, USB drives and emailed PDFs of returns are the usual findings, and encryption status also decides whether a lost device triggers FTC breach notice.",
+    "suggestedAuditProgramChanges": "Verify full-disk encryption on all endpoints holding client data, and review how completed returns and source documents are exchanged with clients.",
+    "clientReadinessAdvisory": "Recommend clients move document exchange to a secure portal instead of email attachments and confirm drive encryption on every laptop before filing season."
+  },
+  {
+    "id": "ftc-safeguards-pentest-vuln-scan-cadence",
+    "dateFound": "2026-10-21",
+    "publishedDate": "Amended rule effective June 9, 2023 (background)",
+    "source": "FTC",
+    "category": "Regulatory",
+    "guidanceType": "Rule Change",
+    "title": "FTC Safeguards Rule: annual penetration testing and semiannual vulnerability scans unless continuously monitored",
+    "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-C/part-314/section-314.4",
+    "relevance": "High",
+    "affectedAuditAreas": [
+      "Vulnerability Management",
+      "Security Testing"
+    ],
+    "impactAssessment": "Firms without continuous monitoring must perform penetration testing at least annually and vulnerability assessments at least every six months, plus after material changes (16 CFR 314.4(d)(2)). Firms that maintain information on fewer than 5,000 consumers are exempt from this element, so scoping the consumer count is the first step.",
+    "suggestedAuditProgramChanges": "Document the firm's consumer count and method; for firms over the threshold, request the last penetration test report and two most recent vulnerability scans, or evidence of continuous monitoring.",
+    "clientReadinessAdvisory": "For clients over 5,000 consumers, schedule testing now so remediation lands before January; for smaller firms, explain the exemption but recommend at least an annual external scan."
+  },
+  {
+    "id": "ftc-safeguards-qualified-individual-outsourced",
+    "dateFound": "2026-10-21",
+    "publishedDate": "Amended rule effective June 9, 2023 (background)",
+    "source": "FTC",
+    "category": "Regulatory",
+    "guidanceType": "Framework Guidance",
+    "title": "Safeguards Rule qualified individual may be an outside service provider, with firm oversight",
+    "url": "https://www.ftc.gov/business-guidance/resources/ftc-safeguards-rule-what-your-business-needs-know",
+    "relevance": "Medium",
+    "affectedAuditAreas": [
+      "WISP / Governance",
+      "Vendor/Third-Party Risk"
+    ],
+    "impactAssessment": "Firms must designate one qualified individual to oversee the information security program (16 CFR 314.4(a)). That person can be an outside provider, but the firm keeps responsibility and must assign senior staff to supervise the provider. Many small firms have never formally named anyone.",
+    "suggestedAuditProgramChanges": "Confirm a named qualified individual in writing; if external, review the agreement and identify the internal staff member who oversees them.",
+    "clientReadinessAdvisory": "Small firms that cannot staff this role internally can use a virtual qualified individual service; raise it during WISP reviews as a practical way to meet the requirement."
+  },
+  {
+    "id": "ftc-safeguards-small-institution-exemption",
+    "dateFound": "2026-10-21",
+    "publishedDate": "Amended rule effective June 9, 2023 (background)",
+    "source": "FTC",
+    "category": "Regulatory",
+    "guidanceType": "Framework Guidance",
+    "title": "Firms with fewer than 5,000 consumers are exempt from several written Safeguards Rule elements",
+    "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-C/part-314/section-314.6",
+    "relevance": "Medium",
+    "affectedAuditAreas": [
+      "Scoping",
+      "Risk Assessment"
+    ],
+    "impactAssessment": "Institutions maintaining customer information on fewer than 5,000 consumers are exempt from the written risk assessment, penetration testing and scan cadence, written incident response plan, and annual report to leadership (16 CFR 314.6). All other elements still apply, and IRS Pub 4557/5708 still expect a written plan covering risk and incident response.",
+    "suggestedAuditProgramChanges": "Record the consumer count with date and method at the start of each engagement; treat exempt elements as best-practice tests rather than skipping them.",
+    "clientReadinessAdvisory": "Advise small firms to keep a written risk assessment and incident plan anyway, since the IRS, cyber insurers and attorneys will ask for them after an incident."
+  },
+  {
+    "id": "irs-pub-4557-security-six",
+    "dateFound": "2026-10-21",
+    "publishedDate": "Pub 4557 (current revision); background baseline for all tax professionals",
+    "source": "IRS",
+    "category": "Cybersecurity",
+    "guidanceType": "Framework Guidance",
+    "title": "IRS Publication 4557 'Security Six' baseline controls for every tax professional",
+    "url": "https://www.irs.gov/pub/irs-pdf/p4557.pdf",
+    "relevance": "Medium",
+    "affectedAuditAreas": [
+      "Endpoint Security",
+      "Network Security",
+      "Backup & Recovery"
+    ],
+    "impactAssessment": "Safeguarding Taxpayer Data sets the IRS baseline: anti-virus, firewalls, multi-factor authentication, backups, drive encryption and VPN for remote access, plus administrative and physical safeguards. These six controls are what clients understand most easily and what attorneys and insurers ask about first after a breach.",
+    "suggestedAuditProgramChanges": "Use the Security Six as a quick-scan checklist at the start of each engagement before deeper Safeguards Rule testing.",
+    "clientReadinessAdvisory": "Lead client conversations with a Security Six scorecard; it shows progress quickly and builds trust for the larger WISP engagement."
+  },
+  {
+    "id": "irs-data-theft-stakeholder-liaison",
+    "dateFound": "2026-10-21",
+    "publishedDate": "IRS data theft guidance for tax professionals (ongoing; background)",
+    "source": "IRS",
+    "category": "Regulatory",
+    "guidanceType": "Framework Guidance",
+    "title": "IRS: report data theft to your Stakeholder Liaison immediately",
+    "url": "https://www.irs.gov/individuals/data-theft-information-for-tax-professionals",
+    "relevance": "Medium",
+    "affectedAuditAreas": [
+      "Incident Response"
+    ],
+    "impactAssessment": "Tax professionals who suffer data theft should contact their IRS Stakeholder Liaison right away so the IRS can protect affected taxpayers' accounts, and also notify state tax agencies. IRS reporting has no consumer threshold and is separate from FTC notice; speed limits fraudulent returns filed in clients' names.",
+    "suggestedAuditProgramChanges": "Verify the incident response plan lists the local IRS Stakeholder Liaison and Michigan Department of Treasury contacts.",
+    "clientReadinessAdvisory": "Add the Michigan Stakeholder Liaison contact to each client's incident plan during the fall readiness review."
+  },
+  {
+    "id": "mi-identity-theft-protection-act-breach-notice",
+    "dateFound": "2026-10-21",
+    "publishedDate": "MCL 445.72 (in force; background)",
+    "source": "Michigan",
+    "category": "Regulatory",
+    "guidanceType": "Framework Guidance",
+    "title": "Michigan Identity Theft Protection Act: breach notice to affected Michigan residents",
+    "url": "https://www.legislature.mi.gov/Laws/MCL?objectName=mcl-445-72",
+    "relevance": "Medium",
+    "affectedAuditAreas": [
+      "Breach Notification",
+      "Incident Response"
+    ],
+    "impactAssessment": "Michigan requires businesses to notify affected residents of a security breach of their personal information without unreasonable delay, unless the business determines the breach is not likely to cause substantial loss or injury. This applies regardless of the FTC's 500-consumer threshold, so even small incidents can require client letters.",
+    "suggestedAuditProgramChanges": "Confirm the incident response plan addresses Michigan resident notice and includes a draft notice template and decision record for the 'no substantial loss' determination.",
+    "clientReadinessAdvisory": "Pre-draft a client notification letter template with each Michigan accounting client so it is ready if needed during filing season."
+  },
+  {
+    "id": "irs-pub-5293-staff-training",
+    "dateFound": "2026-10-21",
+    "publishedDate": "Pub 5293 (current revision; background)",
+    "source": "IRS",
+    "category": "Cybersecurity",
+    "guidanceType": "Framework Guidance",
+    "title": "IRS Publication 5293: data security resource guide usable for staff training",
+    "url": "https://www.irs.gov/pub/irs-pdf/p5293.pdf",
+    "relevance": "Low",
+    "affectedAuditAreas": [
+      "Security Awareness Training"
+    ],
+    "impactAssessment": "A plain-language guide covering phishing awareness, signs of identity theft and steps after data loss. It is useful free training material for seasonal staff, who are the most frequent phishing targets during filing season.",
+    "suggestedAuditProgramChanges": "Confirm all staff, including seasonal hires, completed security training before handling client data (Safeguards Rule 16 CFR 314.4(e)).",
+    "clientReadinessAdvisory": "Package Pub 5293 into a short pre-season training session for client staff; low effort and directly supports the training requirement."
+  },
+  {
+    "id": "nist-ir-7621r1-small-business-fundamentals",
+    "dateFound": "2026-10-21",
+    "publishedDate": "NIST IR 7621 Rev. 1 (2016; background reference cited alongside IRS Pub 4557)",
+    "source": "NIST",
+    "category": "Cybersecurity",
+    "guidanceType": "Framework Guidance",
+    "title": "NIST IR 7621 Rev. 1: Small Business Information Security — The Fundamentals",
+    "url": "https://csrc.nist.gov/pubs/ir/7621/r1/final",
+    "relevance": "Low",
+    "affectedAuditAreas": [
+      "Risk Assessment"
+    ],
+    "impactAssessment": "NIST's small-business guide gives firms a recognized identify-protect-detect-respond-recover structure for their risk assessment without adopting the full NIST CSF. It is older background guidance, but the IRS points tax professionals to it when building a security plan.",
+    "suggestedAuditProgramChanges": "No dedicated audit step needed at this time; accept a 7621-based risk assessment as evidence for the written risk assessment element.",
+    "clientReadinessAdvisory": "No proactive outreach needed at this time; offer a 7621-based risk assessment worksheet when a client needs a starting point."
   }
- ]
-}</script>
+]
+</script>
+
+<script id="repo-meta" type="application/json">
+{
+  "lastChecked": "2026-10-26T12:55:00Z",
+  "sourcesMonitored": [
+    "FTC",
+    "IRS",
+    "AICPA",
+    "NIST",
+    "CISA",
+    "Michigan"
+  ],
+  "checkHistory": [
+    {
+      "date": "2026-10-22T03:55:00Z",
+      "newItems": 13,
+      "note": "Initial seed run: drafted 13 entries covering the FTC Safeguards Rule elements most relevant to accounting and tax firms (breach notification, MFA, encryption, testing cadence, qualified individual, small-institution exemption), IRS Pubs 4557, 5708 and 5293, the Form W-12 WISP acknowledgment, IRS data-theft reporting, Michigan's breach notice law, and NIST IR 7621. Most are background requirements still in force rather than new releases; weekly runs will add genuinely new guidance."
+    },
+    {
+      "date": "2026-10-26T12:55:00Z",
+      "newItems": 2,
+      "note": "Added CISA's SafePay ransomware advisory (AA26-293A, Oct 20) and the IRS IR-2026-127 IP PIN reminder (Oct 22); reviewed and skipped the FTC Safeguards PRA renewal notice (Aug 25, already covered by the breach-notification entry), IRS Tax Pro Awareness Week (IR-2026-124) and Cybersecurity Month (IR-2026-119) recaps, and Michigan SB 360, which is still pending in House committee."
+    }
+  ]
+}
+</script>
 
 <script>
 const $ = id => document.getElementById(id);
